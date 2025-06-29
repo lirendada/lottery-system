@@ -1,4 +1,4 @@
-package com.liren.lottery_system.model.response;
+package com.liren.lottery_system.common.model.response;
 
 import com.liren.lottery_system.common.status.GlobalStatusEnum;
 import lombok.AllArgsConstructor;

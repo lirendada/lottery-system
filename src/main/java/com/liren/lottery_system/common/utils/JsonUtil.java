@@ -14,7 +14,7 @@ public class JsonUtil {
 
     private JsonUtil() {}
 
-    public static ObjectMapper getInstance() {
+    private static ObjectMapper getInstance() {
         return objectMapper;
     }
 
