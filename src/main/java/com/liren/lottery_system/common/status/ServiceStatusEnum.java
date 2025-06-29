@@ -1,6 +1,5 @@
-package com.liren.lottery_system.common.enums;
+package com.liren.lottery_system.common.status;
 
-import com.liren.lottery_system.model.ErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,14 +28,14 @@ public enum ServiceStatusEnum {
 
     @Getter
     @Setter
-    ErrorCode errorCode;
+    Integer code;
 
-    ServiceStatusEnum(ErrorCode errorCode) {
-        this.errorCode = errorCode;
-    }
+    @Getter
+    @Setter
+    String msg;
 
     ServiceStatusEnum(Integer code, String msg) {
-        this.errorCode.setCode(code);
-        this.errorCode.setErrMsg(msg);
+        this.code = code;
+        this.msg = msg;
     }
 }
