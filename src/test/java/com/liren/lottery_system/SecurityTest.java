@@ -60,5 +60,11 @@ public class SecurityTest {
         System.out.println("加密后的手机：" + encrypt);
         String decrypt = SecurityUtil.aesDecrypt(encrypt);
         System.out.println("解密后的手机：" + decrypt);
+
+        // 测试摘要加密
+        String passwd = "123123";
+        String newPasswd = SecurityUtil.sha256Encrypt(passwd);
+        System.out.println("加密后的密码：" + newPasswd);
+        System.out.println(SecurityUtil.isValidated(passwd + '1', newPasswd));
     }
 }
