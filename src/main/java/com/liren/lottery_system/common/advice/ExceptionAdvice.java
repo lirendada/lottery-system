@@ -28,4 +28,16 @@ public class ExceptionAdvice {
         log.error("ServiceException异常：" + e);
         return Result.fail(GlobalStatusEnum.INTERNAL_SERVER_ERROR.getCode(), e.getMsg());
     }
+
+    @ExceptionHandler
+    public Object handler(IllegalArgumentException e) {
+        log.error("IllegalArgumentException不合法参数异常：" + e);
+        return Result.fail(GlobalStatusEnum.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler
+    public Object handler(NullPointerException e) {
+        log.error("NullPointerException空指针异常：" + e);
+        return Result.fail(GlobalStatusEnum.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
+    }
 }

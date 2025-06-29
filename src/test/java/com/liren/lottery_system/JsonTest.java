@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class UtilTest {
+public class JsonTest {
     @Test
-    public void jsonTest() {
+    public void test() {
         Result<String> result = Result.success("liren");
 
         String str = null;
