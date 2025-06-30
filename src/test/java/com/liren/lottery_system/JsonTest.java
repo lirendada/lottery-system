@@ -1,7 +1,7 @@
 package com.liren.lottery_system;
 
 import com.liren.lottery_system.common.utils.JsonUtil;
-import com.liren.lottery_system.common.model.response.Result;
+import com.liren.lottery_system.common.pojo.Result;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

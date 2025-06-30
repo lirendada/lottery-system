@@ -2,8 +2,8 @@ package com.liren.lottery_system.common.advice;
 
 import com.liren.lottery_system.common.exception.ControllerException;
 import com.liren.lottery_system.common.exception.ServiceException;
-import com.liren.lottery_system.common.status.GlobalStatusEnum;
-import com.liren.lottery_system.common.model.response.Result;
+import com.liren.lottery_system.common.enums.GlobalStatusEnum;
+import com.liren.lottery_system.common.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

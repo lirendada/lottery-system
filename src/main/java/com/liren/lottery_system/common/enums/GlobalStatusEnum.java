@@ -1,5 +1,6 @@
-package com.liren.lottery_system.common.status;
+package com.liren.lottery_system.common.enums;
 
+import com.liren.lottery_system.common.exception.CodeStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +20,10 @@ public enum GlobalStatusEnum {
     @Getter
     @Setter
     String msg;
+
+    @Getter
+    @Setter
+    CodeStatus codeStatus;
 
     GlobalStatusEnum(Integer code, String msg) {
         this.code = code;

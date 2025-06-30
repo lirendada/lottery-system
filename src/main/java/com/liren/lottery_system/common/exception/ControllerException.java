@@ -9,7 +9,7 @@ public class ControllerException extends RuntimeException {
     private Integer code;
     private String msg;
 
-    ControllerException(CodeStatus errorCode) {
+    public ControllerException(CodeStatus errorCode) {
         this.code = errorCode.getCode();
         this.msg = errorCode.getMsg();
     }

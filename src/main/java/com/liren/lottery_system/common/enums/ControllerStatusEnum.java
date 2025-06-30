@@ -1,11 +1,11 @@
-package com.liren.lottery_system.common.status;
+package com.liren.lottery_system.common.enums;
 
+import com.liren.lottery_system.common.exception.CodeStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 public enum ControllerStatusEnum {
-    // ------ 人员模块错误码 --------
-
+    // ------ 用户模块错误码 --------
     REGISTER_ERROR(100, "注册失败"),
     LOGIN_ERROR(101, "登录失败");
 
@@ -28,8 +28,14 @@ public enum ControllerStatusEnum {
     @Setter
     String msg;
 
+    @Getter
+    @Setter
+    CodeStatus codeStatus;
+
     ControllerStatusEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
+        codeStatus.setCode(code);
+        codeStatus.setMsg(msg);
     }
 }

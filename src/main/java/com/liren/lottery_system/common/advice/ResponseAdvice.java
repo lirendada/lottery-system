@@ -1,7 +1,7 @@
 package com.liren.lottery_system.common.advice;
 
 import com.liren.lottery_system.common.utils.JsonUtil;
-import com.liren.lottery_system.common.model.response.Result;
+import com.liren.lottery_system.common.pojo.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
