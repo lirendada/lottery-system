@@ -116,11 +116,18 @@
 
             // 表单验证通过后，发送AJAX请求
             $.ajax({
-                url: '',
-                type: '',
-                contentType: '',
+                url: '/register',
+                type: 'post',
+                contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(result) {
+                    console.log(result);
+                    if(result != null && result.code == 200) {
+                        alert("注册成功，去登录！");
+                        location.href = "blogin.html"
+                    } else {
+                        alert("注册失败！" + result.msg);
+                    }
                 }
             });
             return false; // 阻止表单的默认提交行为
