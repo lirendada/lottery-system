@@ -2,6 +2,7 @@ package com.liren.lottery_system;
 
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
+import com.liren.lottery_system.common.constant.Constants;
 import com.liren.lottery_system.common.utils.SecurityUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,5 +67,7 @@ public class SecurityTest {
         String newPasswd = SecurityUtil.sha256Encrypt(passwd);
         System.out.println("加密后的密码：" + newPasswd);
         System.out.println(SecurityUtil.isValidated(passwd + '1', newPasswd));
+
+        System.out.println(Constants.SYMMETRIC_KEY);
     }
 }

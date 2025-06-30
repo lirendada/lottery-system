@@ -15,7 +15,7 @@ public enum UserIdentityEnum {
 
     public static boolean isValidated(String identity) {
         for(UserIdentityEnum userIdentityEnum : UserIdentityEnum.values()) {
-            if(identity.equals(userIdentityEnum.getIdentity())) {
+            if(identity.equals(userIdentityEnum.name())) {
                 return true;
             }
         }

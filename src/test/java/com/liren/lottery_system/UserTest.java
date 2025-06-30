@@ -15,4 +15,5 @@ public class UserTest {
     public void testPhoneCheck() {
         System.out.println(userXmlMapper.countPhone(new Encrypt("123123")));
     }
+
 }

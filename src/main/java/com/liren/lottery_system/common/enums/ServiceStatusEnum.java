@@ -13,7 +13,8 @@ public enum ServiceStatusEnum {
     PHONE_ALREADY_EXIST(104, "手机已存在"),
     IDENTITY_INVALIDATED(105, "身份信息不合法"),
     ADMIN_PASSWORD_NOT_FILLED(106, "管理员未填写密码"),
-    PASSWORD_INVALIDATED(107, "密码格式不合法");
+    PASSWORD_INVALIDATED(107, "密码格式不合法"),
+    INSERT_USER_ERROR(108, "插入用户失败");
 
     // ------ 奖品模块错误码 --------
 
@@ -48,5 +49,6 @@ public enum ServiceStatusEnum {
     ServiceStatusEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
+        this.codeStatus = new CodeStatus(code, msg);
     }
 }

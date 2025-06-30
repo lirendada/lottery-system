@@ -12,5 +12,5 @@ import java.io.Serializable;
 public class RegisterResponseVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer userId;
+    private long userId;
 }

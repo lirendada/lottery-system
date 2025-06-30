@@ -29,7 +29,7 @@ public class RegisterController {
         if(responseDTO == null) {
             throw new ControllerException(ControllerStatusEnum.REGISTER_ERROR.getCodeStatus());
         }
-
+        log.info("responseDTO: " + responseDTO);
         return BeanTransformUtil.trans(responseDTO);
     }
 }
