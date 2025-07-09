@@ -1,6 +1,6 @@
 package com.liren.lottery_system.common.enums;
 
-import com.liren.lottery_system.common.exception.CodeStatus;
+import com.liren.lottery_system.common.pojo.CodeStatus;
 import lombok.Getter;
 import lombok.Setter;
 

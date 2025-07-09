@@ -18,7 +18,6 @@ public class JsonUtil {
         return objectMapper;
     }
 
-
     // 序列化
     public static String toJson(Object object) {
         return JsonUtil.tryParse(() -> {

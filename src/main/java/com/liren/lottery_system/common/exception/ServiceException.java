@@ -1,5 +1,6 @@
 package com.liren.lottery_system.common.exception;
 
+import com.liren.lottery_system.common.pojo.CodeStatus;
 import lombok.*;
 
 @Data
