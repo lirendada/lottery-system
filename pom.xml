@@ -87,6 +87,13 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-captcha -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
+            <version>5.8.37</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -23,8 +23,8 @@ public class RedisUtil {
      */
     public boolean set(String key, String value) {
         try {
-            log.info("插入redis键值对（{}, {}）", key, value);
             stringRedisTemplate.opsForValue().set(key, value);
+            log.info("插入redis键值对（{}, {}）", key, value);
             return true;
         } catch (Exception e) {
             log.error("插入redis键值对（{}, {}）失败，{}", key, value, e);
@@ -37,8 +37,12 @@ public class RedisUtil {
      */
     public boolean set(String key, String value, long timeout) {
         try {
+            if(timeout > 0) {
+                stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
+            } else {
+                stringRedisTemplate.opsForValue().set(key, value);
+            }
             log.info("插入redis键值对（{}, {}）", key, value);
-            stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
             return true;
         } catch (Exception e) {
             log.error("插入redis键值对（{}, {}）失败，{}", key, value, e);
@@ -50,7 +54,7 @@ public class RedisUtil {
      * 获取键值对
      */
     public Object get(String key) {
-        log.info("获取键值对: {}", key);
+        log.info("获取键值对: （{}, {}）", key, stringRedisTemplate.opsForValue().get(key));
         return key == null ?  null : stringRedisTemplate.opsForValue().get(key);
     }
 
@@ -91,10 +95,10 @@ public class RedisUtil {
      */
     public boolean setExpire(String key, long timeout) {
         try {
-            log.info("键值对 {} 设置过期时间 {} 秒", key, timeout);
             if(timeout > 0) {
                 stringRedisTemplate.expire(key, timeout, TimeUnit.SECONDS);
             }
+            log.info("键值对 {} 设置过期时间 {} 秒", key, timeout);
             return true;
         } catch (Exception e) {
             log.error("设置键值对 {} 过期时间失败, {}", key, e);
