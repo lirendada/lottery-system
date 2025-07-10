@@ -25,8 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/**/login",
             "/register",
             "/verification-code/send",
-            "/winning-records/show",
-            "/.well-known/appspecific/com.chrome.devtools.json"
+            "/winning-records/show"
     );
 
     @Override
