@@ -66,6 +66,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/common.js"></script>
 <script>
   $("#loginForm").validate({
     rules: {
@@ -107,7 +108,7 @@
             }
         },
         error: function(xhr) {
-            alert(xhr.messages);
+            errFunc(xhr);
         }
       });
       return false; // 阻止表单的默认提交行为
@@ -198,7 +199,7 @@
                   }
               },
               error: function(xhr) {
-                  alert(xhr.messages);
+                  errFunc(xhr);
               }
           });
           return false; // 阻止表单的默认提交行为

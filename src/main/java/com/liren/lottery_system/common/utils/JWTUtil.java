@@ -55,11 +55,8 @@ public class JWTUtil {
      * 将生成JWT字符串解析后进行返回
      */
     public static Claims parseJWT(String jwt) {
-        if (SECRET_KEY == null) {
-            throw new IllegalStateException("SECRET_KEY 未初始化！");
-        }
-        if(!StringUtils.hasText(jwt)) {
-            throw new IllegalStateException("JWT参数错误！");
+        if(SECRET_KEY == null || !StringUtils.hasText(jwt)) {
+            return null;
         }
 
         Claims claim = null;
