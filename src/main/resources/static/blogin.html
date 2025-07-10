@@ -63,7 +63,7 @@
   </div>
 </div>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
@@ -89,12 +89,26 @@
       $('.error').text('');
       // 发送AJAX请求
       $.ajax({
-        url: '',
-        type: '',
-        contentType: '',
-        data: JSON.stringify(),
+        url: '/password/login',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            loginName: loginName,
+            password: password,
+            mandatoryIdentity: "ADMIN"
+        }),
         success: function(result) {
+            if(result != null && result.code == 200) {
+                localStorage.setItem("user_token", result.data.token);
+                localStorage.setItem("user_identity", "ADMIN");
+                location.href = "admin.html"
+            } else {
+                alert(result.msg);
+            }
         },
+        error: function(xhr) {
+            alert(xhr.messages);
+        }
       });
       return false; // 阻止表单的默认提交行为
     }
@@ -133,16 +147,18 @@
   })
   function getCode(){
       $.ajax({
-          url: '',
-          type: '',
-          data:{ phoneNumber:$('#loginMobile').val() },
+          url: '/verification-code/send',
+          type: 'get',
+          data:{
+              phoneNumber:$('#loginMobile').val()
+          },
           success: function(result) {
-              if (result.code != 200) {
+              if (result == null || result.code != 200) {
                   timer&&clearInterval(timer)
                   $('#getVerificationCode').text('重新获取')
-                  toastr.error('验证码获取失败');
+                  alert('验证码获取失败');
               } else {
-                  toastr.success('验证码发送成功')
+                  alert('验证码：' + result.data);
               }
           },
       });
@@ -164,12 +180,26 @@
           $('.error').text('');
           // 发送AJAX请求
           $.ajax({
-              url: '',
-              type: '',
-              contentType: '',
-              data: JSON.stringify(),
+              url: '/message/login',
+              type: 'post',
+              contentType: 'application/json',
+              data: JSON.stringify({
+                  loginMobile: loginMobile,
+                  verificationCode: verificationCode,
+                  mandatoryIdentity: "ADMIN"
+              }),
               success: function(result) {
+                  if(result != null && result.code == 200) {
+                      localStorage.setItem("user_token", result.data.token);
+                      localStorage.setItem("user_identity", "ADMIN");
+                      location.href = "admin.html"
+                  } else {
+                      alert(result.msg);
+                  }
               },
+              error: function(xhr) {
+                  alert(xhr.messages);
+              }
           });
           return false; // 阻止表单的默认提交行为
       }
