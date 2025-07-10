@@ -1,10 +1,7 @@
 package com.liren.lottery_system.controller;
 
 import com.liren.lottery_system.common.exception.ControllerException;
-import com.liren.lottery_system.common.pojo.dto.LoginPasswordRequestDTO;
-import com.liren.lottery_system.common.pojo.dto.LoginVerificationCodeRequestDTO;
-import com.liren.lottery_system.common.pojo.dto.RegisterRequestDTO;
-import com.liren.lottery_system.common.pojo.dto.RegisterResponseDTO;
+import com.liren.lottery_system.common.pojo.dto.*;
 import com.liren.lottery_system.common.pojo.vo.LoginResponseVO;
 import com.liren.lottery_system.common.pojo.vo.RegisterResponseVO;
 import com.liren.lottery_system.common.enums.ControllerStatusEnum;
@@ -60,7 +57,12 @@ public class UserController {
     @PostMapping("/password/login")
     public LoginResponseVO loginPassword(@RequestBody @Validated LoginPasswordRequestDTO req) {
         log.info("loginPassword controller：" + JsonUtil.toJson(req));
-
+        LoginResponseDTO loginResponseDTO = userService.loginPassword(req);
+        if(loginResponseDTO == null) {
+            throw new ControllerException(ControllerStatusEnum.LOGIN_PASSWORD_ERROR.getCodeStatus());
+        }
+        log.info("responseDTO: " + loginResponseDTO);
+        return BeanTransformUtil.trans(loginResponseDTO);
     }
 
     /**
@@ -69,6 +71,11 @@ public class UserController {
     @PostMapping("/message/login")
     public LoginResponseVO loginVerificationCode(@RequestBody @Validated LoginVerificationCodeRequestDTO req) {
         log.info("loginVerificationCode controller：" + JsonUtil.toJson(req));
-
+        LoginResponseDTO loginResponseDTO = userService.loginVerificationCode(req);
+        if(loginResponseDTO == null) {
+            throw new ControllerException(ControllerStatusEnum.LOGIN_VERIFICATION_CODE_ERROR.getCodeStatus());
+        }
+        log.info("responseDTO: " + loginResponseDTO);
+        return BeanTransformUtil.trans(loginResponseDTO);
     }
 }

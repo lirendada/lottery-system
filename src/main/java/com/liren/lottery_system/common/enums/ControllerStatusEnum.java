@@ -7,7 +7,9 @@ import lombok.Setter;
 public enum ControllerStatusEnum {
     // ------ 用户模块错误码 --------
     REGISTER_ERROR(100, "注册失败"),
-    LOGIN_ERROR(101, "登录失败");
+    LOGIN_ERROR(101, "登录失败"),
+    LOGIN_PASSWORD_ERROR(102, "密码登录失败"),
+    LOGIN_VERIFICATION_CODE_ERROR(102, "验证码登录失败");
 
     // ------ 奖品模块错误码 --------
 
