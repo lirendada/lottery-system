@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @ResponseBody
@@ -42,4 +43,11 @@ public class ExceptionAdvice {
         log.error("NullPointerException空指针异常：" + e);
         return Result.fail(GlobalStatusEnum.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
     }
+
+    @ExceptionHandler
+    public Object handler(NoResourceFoundException e) {
+        log.error("NoResourceFoundException资源未找到异常：" + e);
+        return Result.fail(GlobalStatusEnum.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
+    }
+
 }
