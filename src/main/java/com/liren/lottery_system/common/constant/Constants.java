@@ -11,4 +11,7 @@ public class Constants {
 
     // 手机验证码前缀标识
     public static final String VERIFICATION_CODE_PREFIX = "VERIFICATION_CODE_";
+
+    // TOKEN过期时间
+    public static final long TOKEN_EXPIRE_TIME = 3600_000;
 }

@@ -14,4 +14,12 @@
     <select id="countPhone" resultType="java.lang.Integer">
         select count(*) from user where phone_number=#{phoneNumber}
     </select>
+
+    <select id="getUserByEmail" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
+        select * from user where email=#{email}
+    </select>
+
+    <select id="getUserByPhone" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
+        select * from user where phone_number=#{phoneNumber}
+    </select>
 </mapper>

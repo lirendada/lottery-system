@@ -21,4 +21,14 @@ public interface UserXmlMapper {
      * 插入用户信息
      */
     Integer insertUser(UserEntity user);
+
+    /**
+     * 根据邮箱找到对应用户
+     */
+    UserEntity getUserByEmail(@Param("email") String email);
+
+    /**
+     * 根据手机找到对应用户
+     */
+    UserEntity getUserByPhone(@Param("phoneNumber") Encrypt encrypt);
 }

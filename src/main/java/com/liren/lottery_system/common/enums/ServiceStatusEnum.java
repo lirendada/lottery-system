@@ -13,8 +13,11 @@ public enum ServiceStatusEnum {
     PHONE_ALREADY_EXIST(104, "手机已存在"),
     IDENTITY_INVALIDATED(105, "身份信息不合法"),
     ADMIN_PASSWORD_NOT_FILLED(106, "管理员未填写密码"),
-    PASSWORD_INVALIDATED(107, "密码格式不合法"),
-    INSERT_USER_ERROR(108, "插入用户失败");
+    PASSWORD_INVALIDATED(107, "密码不合法"),
+    INSERT_USER_ERROR(108, "插入用户失败"),
+    LOGIN_INFO_ERROR(109, "登录用户信息不合法"),
+    USER_NOT_FOUND(110, "未找到用户"),
+    VERIFICATION_CODE_INVALIDATED(111, "验证码无效");
 
     // ------ 奖品模块错误码 --------
 
