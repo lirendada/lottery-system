@@ -213,8 +213,8 @@
   window.addEventListener('message', function(e){
     console.log('子页面传递的数据', e.data)
     if(e.data && e.data.from){
-      var pages = e.data.from+'?param=' +  new Date().getTime()
-      $('#contentFrame').attr('src', pages);
+      var pages = e.data.from+'?param=' +  new Date().getTime()  // 强制加时间戳参数（防止缓存）
+      $('#contentFrame').attr('src', pages); // 切换页面内容
       let id = e.data.id
       // 移除所有链接的激活样式
       $('ul.nav .nav-link').removeClass('active');

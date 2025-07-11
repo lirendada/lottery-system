@@ -75,6 +75,7 @@
 <script>
     var params = new URLSearchParams(window.location.search);
     var admin = params.get('admin');
+    var jumpList = window.params.get('jumpList');
 
     // 判断是否隐藏密码输入框
     if(admin === 'false') {
@@ -123,8 +124,18 @@
                 success: function(result) {
                     console.log(result);
                     if(result != null && result.code == 200) {
-                        alert("注册成功，去登录！");
-                        location.href = "blogin.html"
+                        if(jumpList === "true") {
+                            window.parent.postMessage(
+                                {
+                                  from: "user-list.html",
+                                  id: "userList"
+                                },
+                                '*'
+                            )
+                        } else {
+                            alert("注册成功，去登录！");
+                            location.href = "blogin.html"
+                        }
                     } else {
                         alert("注册失败！" + result.msg);
                     }

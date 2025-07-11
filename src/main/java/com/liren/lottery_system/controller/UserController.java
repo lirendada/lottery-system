@@ -2,20 +2,26 @@ package com.liren.lottery_system.controller;
 
 import com.liren.lottery_system.common.exception.ControllerException;
 import com.liren.lottery_system.common.pojo.dto.*;
+import com.liren.lottery_system.common.pojo.entity.UserEntity;
 import com.liren.lottery_system.common.pojo.vo.LoginResponseVO;
 import com.liren.lottery_system.common.pojo.vo.RegisterResponseVO;
 import com.liren.lottery_system.common.enums.ControllerStatusEnum;
+import com.liren.lottery_system.common.pojo.vo.UserResponseVO;
 import com.liren.lottery_system.common.utils.BeanTransformUtil;
 import com.liren.lottery_system.common.utils.JsonUtil;
 import com.liren.lottery_system.service.UserService;
 import com.liren.lottery_system.service.VerificationCodeService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -37,7 +43,6 @@ public class UserController {
         if(responseDTO == null) {
             throw new ControllerException(ControllerStatusEnum.REGISTER_ERROR.getCodeStatus());
         }
-        log.info("responseDTO: " + responseDTO);
         return BeanTransformUtil.trans(responseDTO);
     }
 
@@ -61,7 +66,6 @@ public class UserController {
         if(loginResponseDTO == null) {
             throw new ControllerException(ControllerStatusEnum.LOGIN_PASSWORD_ERROR.getCodeStatus());
         }
-        log.info("responseDTO: " + loginResponseDTO);
         return BeanTransformUtil.trans(loginResponseDTO);
     }
 
@@ -75,7 +79,16 @@ public class UserController {
         if(loginResponseDTO == null) {
             throw new ControllerException(ControllerStatusEnum.LOGIN_VERIFICATION_CODE_ERROR.getCodeStatus());
         }
-        log.info("responseDTO: " + loginResponseDTO);
         return BeanTransformUtil.trans(loginResponseDTO);
+    }
+
+    /**
+     * 获取用户列表
+     */
+    @GetMapping("/base-user/find-list")
+    public List<UserResponseVO> getUserList() {
+        log.info("getUserList controller");
+        List<UserEntity> userList = userService.getUserList();
+        return BeanTransformUtil.trans(userList);
     }
 }

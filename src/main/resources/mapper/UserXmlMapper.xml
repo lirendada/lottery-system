@@ -22,4 +22,8 @@
     <select id="getUserByPhone" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
         select * from user where phone_number=#{phoneNumber}
     </select>
+
+    <select id="ListUser" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
+        select id, user_name, `identity` from user order by id asc
+    </select>
 </mapper>

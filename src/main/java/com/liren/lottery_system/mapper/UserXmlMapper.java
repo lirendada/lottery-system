@@ -5,6 +5,8 @@ import com.liren.lottery_system.common.pojo.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserXmlMapper {
     /**
@@ -31,4 +33,9 @@ public interface UserXmlMapper {
      * 根据手机找到对应用户
      */
     UserEntity getUserByPhone(@Param("phoneNumber") Encrypt encrypt);
+
+    /**
+     * 获取用户列表
+     */
+    List<UserEntity> ListUser();
 }

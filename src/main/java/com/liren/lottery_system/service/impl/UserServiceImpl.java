@@ -7,6 +7,7 @@ import com.liren.lottery_system.common.pojo.dto.*;
 import com.liren.lottery_system.common.enums.ServiceStatusEnum;
 import com.liren.lottery_system.common.pojo.entity.Encrypt;
 import com.liren.lottery_system.common.pojo.entity.UserEntity;
+import com.liren.lottery_system.common.pojo.vo.UserResponseVO;
 import com.liren.lottery_system.common.utils.JWTUtil;
 import com.liren.lottery_system.common.utils.RedisUtil;
 import com.liren.lottery_system.common.utils.RegexUtil;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -127,6 +129,11 @@ public class UserServiceImpl implements UserService {
         loginResponseDTO.setIdentity(user.getIdentity());
         loginResponseDTO.setToken(token);
         return loginResponseDTO;
+    }
+
+    @Override
+    public List<UserEntity> getUserList() {
+        return userXmlMapper.ListUser();
     }
 
     private void checkRegisterInfo(RegisterRequestDTO req) {
