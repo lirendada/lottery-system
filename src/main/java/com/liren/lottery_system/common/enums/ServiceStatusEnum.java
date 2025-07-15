@@ -17,23 +17,19 @@ public enum ServiceStatusEnum {
     INSERT_USER_ERROR(108, "插入用户失败"),
     LOGIN_INFO_ERROR(109, "登录用户信息不合法"),
     USER_NOT_FOUND(110, "未找到用户"),
-    VERIFICATION_CODE_INVALIDATED(111, "验证码无效");
+    VERIFICATION_CODE_INVALIDATED(111, "验证码无效"),
 
     // ------ 奖品模块错误码 --------
-
+    INSERT_PRIZE_ERROR(200, "插入奖品失败"),
 
     // ------ 活动模块错误码 --------
-
-
 
 
     // ------ 抽奖错误码 --------
 
 
-
-
     // ------ 图片错误码 --------
-
+    UPLOAD_PHOTO_ERROR(500, "上传文件失败");
 
 
 
