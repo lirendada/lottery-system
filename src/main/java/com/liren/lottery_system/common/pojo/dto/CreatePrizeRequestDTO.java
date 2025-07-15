@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PrizeRequestDTO implements Serializable {
+public class CreatePrizeRequestDTO implements Serializable {
     @NotBlank(message = "奖品名不能为空！")
     private String prizeName;
 

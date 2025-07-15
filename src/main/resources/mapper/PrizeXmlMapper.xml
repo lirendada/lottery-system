@@ -7,4 +7,13 @@
         insert into prize (name, description, price, image_url)
         values (#{name}, #{description}, #{price}, #{imageUrl})
     </insert>
+
+    <select id="countPrize" resultType="java.lang.Integer">
+        select count(*) from prize
+    </select>
+
+    <select id="listPrize" resultType="com.liren.lottery_system.common.pojo.entity.PrizeEntity">
+        <bind name="offset" value="(currentPage - 1) * pageSize" />
+        select * from prize order by id asc limit #{offset}, #{pageSize}
+    </select>
 </mapper>

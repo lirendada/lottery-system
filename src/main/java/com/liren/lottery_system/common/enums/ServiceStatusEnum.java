@@ -21,6 +21,9 @@ public enum ServiceStatusEnum {
 
     // ------ 奖品模块错误码 --------
     INSERT_PRIZE_ERROR(200, "插入奖品失败"),
+    PAGE_PARAMETER_ERROR(201, "分页参数不能为空"),
+    GET_PRIZE_LIST_ERROR(202, "分页获取奖品内容为空或为null"),
+    PAGE_OVERMAX_ERROR(203, "当前页码已超出数据范围"),
 
     // ------ 活动模块错误码 --------
 

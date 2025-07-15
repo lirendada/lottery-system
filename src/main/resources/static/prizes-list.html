@@ -173,11 +173,12 @@
 
       // 发送AJAX请求
       $.ajax({
-          url: '',
-          type: '',
+          url: '/prize/find-list',
+          type: 'get',
           data: dataToSend, // 将分页参数作为请求数据发送
           headers: {
               // jwt
+              "user_token":userToken
           },
           dataType: 'json', // 期望从服务器接收的数据类型是JSON
           success: function(result) {
@@ -189,6 +190,7 @@
                 // 清空现有的表格内容
                 var prizeList = $('#prizeList');
                 prizeList.empty();
+
                 prizes.forEach(function(prize) {
                     var imageUrl = prize.imageUrl ? prize.imageUrl : '/pic/defaultPrizeImg.png';
                     prizeList.append('<tr> ' +

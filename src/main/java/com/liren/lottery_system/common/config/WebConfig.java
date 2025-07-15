@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/pic/**",
             "/*.jpg",
             "/*.png",
+            "/*.jpeg",
             "/favicon.ico",
             "/**/login",
             "/register",
