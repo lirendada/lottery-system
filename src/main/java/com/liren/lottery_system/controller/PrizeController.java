@@ -39,7 +39,7 @@ public class PrizeController {
     public PrizeResponseVO getPrizeList(GetPrizeRequestDTO req) {
         log.info("getPrizeList controller, GetPrizeRequestDTO: {}", JsonUtil.toJson(req));
         GetPrizeResponseDTO prizeList = prizeService.getPrizeList(req);
-        log.info("prizeList: {}", prizeList);
+//        log.info("prizeList: {}", prizeList);
         return BeanTransformUtil.trans(prizeList);
     }
 
