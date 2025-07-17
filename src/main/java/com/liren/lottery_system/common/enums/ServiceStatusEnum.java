@@ -26,7 +26,12 @@ public enum ServiceStatusEnum {
     PAGE_OVERMAX_ERROR(203, "当前页码已超出数据范围"),
 
     // ------ 活动模块错误码 --------
-
+    PARAMETER_INVALIDATED(300, "请求参数不合法"),
+    ACTIVITY_ALREADY_EXIST(301, "活动已存在"),
+    ACTIVITY_PRIZE_NOT_FOUND(302, "活动奖品不存在"),
+    ACTIVITY_PRIZE_TIER_ERROR(303, "活动奖品级别不存在"),
+    ACTIVITY_USER_NOT_FOUND(304, "活动用户不存在"),
+    USER_NUMBER_TOO_SMALL(305, "用户数量比奖品数量少"),
 
     // ------ 抽奖错误码 --------
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseVO implements Serializable {
-    private long userId;
+    private Long userId;
     private String userName;
     private String identity;
 }

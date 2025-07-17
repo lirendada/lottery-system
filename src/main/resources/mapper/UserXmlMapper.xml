@@ -26,4 +26,12 @@
     <select id="ListUser" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
         select id, user_name, `identity` from user order by id asc
     </select>
+
+    <select id="listUserIdByIds" resultType="java.lang.Long">
+        select id from user
+        where id in
+        <foreach collection="userIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

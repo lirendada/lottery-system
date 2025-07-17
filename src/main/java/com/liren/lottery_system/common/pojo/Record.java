@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Record implements Serializable {
-    private long prizeId;
+    private Long prizeId;
     private String prizeName;
     private String description;
     private BigDecimal price;
