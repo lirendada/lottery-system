@@ -18,7 +18,15 @@
     </select>
 
     <select id="listPrizeIdByIds" resultType="java.lang.Long">
-        select id from activity
+        select id from prize
+        where id in
+        <foreach collection="prizeIds" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="listPrizeByIds" resultType="com.liren.lottery_system.common.pojo.entity.PrizeEntity">
+        select * from prize
         where id in
         <foreach collection="prizeIds" item="id" separator="," open="(" close=")">
             #{id}

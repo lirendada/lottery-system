@@ -2,9 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liren.lottery_system.mapper.ActivityXmlMapper">
+    <insert id="insertActivity" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into activity (activity_name, description, status)
+        values (#{activityName}, #{description}, #{status})
+    </insert>
 
     <select id="countActivityByName" resultType="java.lang.Integer">
-        select count(*) from activity where activity_name = #{activityName} and status=1
+        select count(*) from activity where activity_name = #{activityName} and status="RUNNING"
+    </select>
+
+    <select id="listActivity" resultType="com.liren.lottery_system.common.pojo.entity.ActivityEntity">
+        select * from activity order by id asc limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="countActivity" resultType="java.lang.Integer">
+        select count(*) from activity where status="RUNNING"
     </select>
 
 

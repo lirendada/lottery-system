@@ -26,4 +26,9 @@ public interface PrizeXmlMapper {
      * 根据传入的奖品id获取对应库中的奖品id，用于判断奖品是否存在
      */
     List<Long> listPrizeIdByIds(List<Long> prizeIds);
+
+    /**
+     * 根据传入的奖品id，获取对应奖品信息
+     */
+    List<PrizeEntity> listPrizeByIds(List<Long> prizeIds);
 }

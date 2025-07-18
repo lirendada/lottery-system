@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public enum UserStatusEnum {
-    AVAILABLE(1, "可使用"),
-    DONE(2, "已被抽取");
+public enum ActivityStatusEnum {
+    RUNNING(1, "活动执行中"),
+    DONE(2, "活动结束");
 
     private Integer code;
-    private String mes;
+    private String msg;
 
-    public static UserStatusEnum forName(String name) {
-        for(UserStatusEnum e : UserStatusEnum.values()) {
+    public static ActivityStatusEnum forName(String name) {
+        for(ActivityStatusEnum e : ActivityStatusEnum.values()) {
             if(e.name().equalsIgnoreCase(name)) {
                 return e;
             }

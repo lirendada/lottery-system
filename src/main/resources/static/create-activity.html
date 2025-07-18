@@ -383,12 +383,13 @@
     // 提交活动信息接口
     function submitActivity(data){
         $.ajax({
-            url: '',
-            type: '',
+            url: '/activity/create',
+            type: 'post',
             contentType: 'application/json',
             data: JSON.stringify(data),
             headers: {
                 // jwt
+                "user_token":userToken
             },
             success: function(result) {
                 if (result.code != 200) {
@@ -403,6 +404,15 @@
 
                 }
             },
+            error:function(err){
+                console.log(err);
+                if(err!=null && err.status==401){
+                    alert("用户未登录, 即将跳转到登录页!");
+                    // 跳转登录页
+                    window.location.href = "/blogin.html";
+                    window.parent.location.href = "/blogin.html";//让父页面一起跳转
+                }
+            }
         });
     }
     // 获取奖品/人员列表并填充模态框

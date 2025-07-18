@@ -1,13 +1,11 @@
 package com.liren.lottery_system.common.utils;
 
+import com.liren.lottery_system.common.pojo.dto.GetActivityResponseDTO;
 import com.liren.lottery_system.common.pojo.dto.GetPrizeResponseDTO;
 import com.liren.lottery_system.common.pojo.dto.LoginResponseDTO;
 import com.liren.lottery_system.common.pojo.dto.RegisterResponseDTO;
 import com.liren.lottery_system.common.pojo.entity.UserEntity;
-import com.liren.lottery_system.common.pojo.vo.LoginResponseVO;
-import com.liren.lottery_system.common.pojo.vo.PrizeResponseVO;
-import com.liren.lottery_system.common.pojo.vo.RegisterResponseVO;
-import com.liren.lottery_system.common.pojo.vo.UserResponseVO;
+import com.liren.lottery_system.common.pojo.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -68,6 +66,16 @@ public class BeanTransformUtil {
     public static PrizeResponseVO trans(GetPrizeResponseDTO responseDTO) {
         log.info("GetPrizeResponseDTO 转化为 PrizeResponseVO");
         PrizeResponseVO responseVO = new PrizeResponseVO();
+        BeanUtils.copyProperties(responseDTO, responseVO);
+        return responseVO;
+    }
+
+    /**
+     * GetActivityResponseDTO 转化为 ActivityResponseVO
+     */
+    public static ActivityResponseVO trans(GetActivityResponseDTO responseDTO) {
+        log.info(" GetActivityResponseDTO 转化为 ActivityResponseVO");
+        ActivityResponseVO responseVO = new ActivityResponseVO();
         BeanUtils.copyProperties(responseDTO, responseVO);
         return responseVO;
     }

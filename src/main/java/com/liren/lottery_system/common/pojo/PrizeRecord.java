@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Record implements Serializable {
+public class PrizeRecord implements Serializable {
     private Long prizeId;
     private String prizeName;
     private String description;

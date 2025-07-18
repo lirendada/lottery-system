@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.liren.lottery_system.common.pojo.Record;
+import com.liren.lottery_system.common.pojo.PrizeRecord;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,9 +71,9 @@ public class PrizeServiceImpl implements PrizeService {
         }
 
         // 进行转化
-        List<Record> records = prizeList.stream()
+        List<PrizeRecord> records = prizeList.stream()
                 .map(x -> {
-                    Record record = new Record();
+                    PrizeRecord record = new PrizeRecord();
                     record.setPrizeId(x.getId());
                     record.setPrizeName(x.getName());
                     record.setDescription(x.getDescription());
