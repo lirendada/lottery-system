@@ -1,8 +1,15 @@
 package com.liren.lottery_system.service.impl;
 
 import com.liren.lottery_system.common.config.DirectRabbitConfig;
+import com.liren.lottery_system.common.enums.ActivityStatusEnum;
+import com.liren.lottery_system.common.enums.ServiceStatusEnum;
+import com.liren.lottery_system.common.exception.ServiceException;
 import com.liren.lottery_system.common.pojo.dto.DrawPrizeRequestDTO;
+import com.liren.lottery_system.common.pojo.entity.ActivityEntity;
+import com.liren.lottery_system.common.pojo.entity.ActivityPrizeEntity;
 import com.liren.lottery_system.common.utils.JsonUtil;
+import com.liren.lottery_system.mapper.ActivityPrizeXmlMapper;
+import com.liren.lottery_system.mapper.ActivityXmlMapper;
 import com.liren.lottery_system.service.DrawPrizeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -19,6 +26,12 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Autowired
+    private ActivityXmlMapper activityXmlMapper;
+
+    @Autowired
+    private ActivityPrizeXmlMapper activityPrizeXmlMapper;
+
     @Override
     public void drawPrize(DrawPrizeRequestDTO req) {
         // 发送到rabbitmq
@@ -29,5 +42,31 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
                                       DirectRabbitConfig.ROUTING,
                                       msg);
         log.info("rabbitmq发送消息成功，map={}", JsonUtil.toJson(msg));
+    }
+
+    @Override
+    public void checkMqMessage(DrawPrizeRequestDTO data) {
+        ActivityEntity activity = activityXmlMapper.getActivity(data.getActivityId());
+        ActivityPrizeEntity activityPrize = activityPrizeXmlMapper.getActivityPrize(data.getActivityId(), data.getPrizeId());
+
+        // 活动是否存在
+        if(activity == null) {
+            throw new ServiceException(ServiceStatusEnum.ACTIVITY_NOT_FOUND_ERROR.getCodeStatus());
+        }
+
+        // 活动是否有效
+        if(activity.getStatus().equalsIgnoreCase(ActivityStatusEnum.DONE.getMsg())) {
+            throw new ServiceException(ServiceStatusEnum.ACTIVITY_INVALIDATED.getCodeStatus());
+        }
+
+        // 奖品是否存在
+        if(activityPrize == null) {
+            throw new ServiceException(ServiceStatusEnum.ACTIVITY_PRIZE_NOT_FOUND_ERROR.getCodeStatus());
+        }
+
+        // 中奖人数是否和奖品数量一致
+        if(activityPrize.getPrizeAmount() != data.getWinnerList().size()) {
+            throw new ServiceException(ServiceStatusEnum.PRIZE_NOT_EQUAL_USER_NUMBER.getCodeStatus());
+        }
     }
 }

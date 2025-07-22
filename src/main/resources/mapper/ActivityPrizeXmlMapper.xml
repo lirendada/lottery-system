@@ -15,4 +15,8 @@
     <select id="listActivityPrize" resultType="com.liren.lottery_system.common.pojo.entity.ActivityPrizeEntity">
         select * from activity_prize where activity_id = #{activityId}
     </select>
+
+    <select id="getActivityPrize" resultType="com.liren.lottery_system.common.pojo.entity.ActivityPrizeEntity">
+        select * from activity_prize where activity_id = #{activityId} and prize_id = #{prizeId}
+    </select>
 </mapper>

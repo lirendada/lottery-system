@@ -32,9 +32,13 @@ public enum ServiceStatusEnum {
     ACTIVITY_PRIZE_TIER_ERROR(303, "活动奖品级别不存在"),
     ACTIVITY_USER_NOT_FOUND(304, "活动用户不存在"),
     USER_NUMBER_TOO_SMALL(305, "用户数量比奖品数量少"),
-    ACTIVITY_NOT_FOUND(306, "不存在该活动"),
+    ACTIVITY_NOT_FOUND(306, "该活动不存在"),
 
     // ------ 抽奖错误码 --------
+    ACTIVITY_NOT_FOUND_ERROR(400, "该活动不存在"),
+    ACTIVITY_PRIZE_NOT_FOUND_ERROR(401, "活动奖品不存在"),
+    ACTIVITY_INVALIDATED(402, "活动无效/已执行完毕"),
+    PRIZE_NOT_EQUAL_USER_NUMBER(403, "奖品和人员数量不一致"),
 
 
     // ------ 图片错误码 --------
