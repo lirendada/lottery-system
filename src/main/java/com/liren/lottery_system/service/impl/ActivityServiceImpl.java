@@ -140,6 +140,44 @@ public class ActivityServiceImpl implements ActivityService {
         return activityResponseVO;
     }
 
+    @Override
+    public ActivityDetailDTO getActivityDetail(Long activityId) {
+        // 校验
+        if(activityId == null) {
+            log.error("用于获取活动详细实体类的activityId为空！");
+            return null;
+        }
+
+        // 访问redis查看是否有对应数据，有的话直接返回
+        // redis没有数据则返回mysql进行数据整合
+        ActivityDetailDTO activityDetailFromRedis = getActivityDetailFromRedis(activityId);
+        if(activityDetailFromRedis != null) {
+            log.info("查询活动详细信息成功！detailDTO={}", activityDetailFromRedis);
+            return activityDetailFromRedis;
+        }
+
+        // 获取活动数据
+        ActivityEntity activity = activityXmlMapper.getActivity(activityId);
+        if(activity == null) {
+            throw new ServiceException(ServiceStatusEnum.ACTIVITY_NOT_FOUND.getCodeStatus());
+        }
+
+        // 获取活动奖品数据
+        List<ActivityPrizeEntity> activityPrize = activityPrizeXmlMapper.listActivityPrize(activityId);
+        List<PrizeEntity> prizes = prizeXmlMapper.listPrizeByIds(
+                        activityPrize.stream()
+                        .map(ActivityPrizeEntity::getPrizeId)
+                        .collect(Collectors.toList()));
+
+        // 获取活动用户数据
+        List<ActivityUserEntity> activityUser = activityUserXmlMapper.listActivityUser(activityId);
+
+        // 整合信息，存储到redis中，然后返回即可
+        ActivityDetailDTO activityDetailDTO = mergeIntoActivityDetail(activity, activityPrize, prizes, activityUser);
+        storeToRedis(activityDetailDTO);
+        return activityDetailDTO;
+    }
+
 
     /**
      * 存储活动详细实体类到Redis中

@@ -1,9 +1,6 @@
 package com.liren.lottery_system.common.utils;
 
-import com.liren.lottery_system.common.pojo.dto.GetActivityResponseDTO;
-import com.liren.lottery_system.common.pojo.dto.GetPrizeResponseDTO;
-import com.liren.lottery_system.common.pojo.dto.LoginResponseDTO;
-import com.liren.lottery_system.common.pojo.dto.RegisterResponseDTO;
+import com.liren.lottery_system.common.pojo.dto.*;
 import com.liren.lottery_system.common.pojo.entity.UserEntity;
 import com.liren.lottery_system.common.pojo.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,9 +72,49 @@ public class BeanTransformUtil {
      * GetActivityResponseDTO 转化为 ActivityResponseVO
      */
     public static ActivityResponseVO trans(GetActivityResponseDTO responseDTO) {
-        log.info(" GetActivityResponseDTO 转化为 ActivityResponseVO");
+        log.info("GetActivityResponseDTO 转化为 ActivityResponseVO");
         ActivityResponseVO responseVO = new ActivityResponseVO();
         BeanUtils.copyProperties(responseDTO, responseVO);
+        return responseVO;
+    }
+
+    /**
+     * GetActivityResponseDTO 转化为 ActivityDetailResponseVO
+     */
+    public static ActivityDetailResponseVO trans(ActivityDetailDTO responseDTO) {
+        log.info("ActivityDetailDTO 转化为 ActivityDetailResponseVO");
+        ActivityDetailResponseVO responseVO = new ActivityDetailResponseVO();
+        responseVO.setActivityId(responseDTO.getActivityId());
+        responseVO.setActivityName(responseDTO.getActivityName());
+        responseVO.setDescription(responseDTO.getDescription());
+        responseVO.setValid(responseDTO.isValid());
+
+        // 抽奖顺序：一等奖、二等奖、三等奖
+        responseVO.setPrizes(responseDTO.getPrizeDTOList()
+                .stream()
+                .sorted(Comparator.comparingInt(prizeDTO -> prizeDTO.getPrizeTiers().getCode()))
+                .map(prizeDTO -> {
+                    ActivityDetailResponseVO.Prize prize = new ActivityDetailResponseVO.Prize();
+                    prize.setPrizeId(prizeDTO.getPrizeId());
+                    prize.setName(prizeDTO.getName());
+                    prize.setDescription(prizeDTO.getDescription());
+                    prize.setPrice(prizeDTO.getPrice());
+                    prize.setImageUrl(prizeDTO.getImageUrl());
+                    prize.setPrizeAmount(prizeDTO.getPrizeAmount());
+                    prize.setPrizeTierName(prizeDTO.getPrizeTiers().getMes());
+                    prize.setValid(prizeDTO.isValid());
+                    return prize;
+                }).collect(Collectors.toList()));
+
+        responseVO.setUsers(responseDTO.getUserDTOList()
+                .stream()
+                .map(userDTO -> {
+                    ActivityDetailResponseVO.User user = new ActivityDetailResponseVO.User();
+                    user.setUserId(userDTO.getUserId());
+                    user.setUserName(userDTO.getUserName());
+                    user.setValid(userDTO.isValid());
+                    return user;
+                }).collect(Collectors.toList()));
         return responseVO;
     }
 }

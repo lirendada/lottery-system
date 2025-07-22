@@ -1,8 +1,10 @@
 package com.liren.lottery_system.controller;
 
+import com.liren.lottery_system.common.pojo.dto.ActivityDetailDTO;
 import com.liren.lottery_system.common.pojo.dto.CreateActivityRequestDTO;
 import com.liren.lottery_system.common.pojo.dto.GetActivityRequestDTO;
 import com.liren.lottery_system.common.pojo.dto.GetActivityResponseDTO;
+import com.liren.lottery_system.common.pojo.vo.ActivityDetailResponseVO;
 import com.liren.lottery_system.common.pojo.vo.ActivityResponseVO;
 import com.liren.lottery_system.common.utils.BeanTransformUtil;
 import com.liren.lottery_system.common.utils.JsonUtil;
@@ -32,5 +34,12 @@ public class ActivityController {
         log.info("getActivityList controller, GetActivityRequestDTO={}", JsonUtil.toJson(req));
         GetActivityResponseDTO activity = activityService.getActivity(req);
         return BeanTransformUtil.trans(activity);
+    }
+
+    @GetMapping("/activity-detail/find")
+    public ActivityDetailResponseVO getActivityDetail(Long activityId) {
+        log.info("getActivityDetail controller, activityId={}", activityId);
+        ActivityDetailDTO activityDetailDTO = activityService.getActivityDetail(activityId);
+        return BeanTransformUtil.trans(activityDetailDTO);
     }
 }

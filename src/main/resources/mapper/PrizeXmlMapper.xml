@@ -19,17 +19,25 @@
 
     <select id="listPrizeIdByIds" resultType="java.lang.Long">
         select id from prize
-        where id in
-        <foreach collection="prizeIds" item="id" separator="," open="(" close=")">
-            #{id}
-        </foreach>
+        <where>
+            <if test="prizeIds != null and prizeIds.size() > 0">
+                and id in
+                <foreach collection="prizeIds" item="id" separator="," open="(" close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
     </select>
 
     <select id="listPrizeByIds" resultType="com.liren.lottery_system.common.pojo.entity.PrizeEntity">
-        select * from prize
-        where id in
-        <foreach collection="prizeIds" item="id" separator="," open="(" close=")">
-            #{id}
-        </foreach>
+        SELECT * FROM prize
+        <where>
+            <if test="prizeIds != null and prizeIds.size() > 0">
+                AND id IN
+                <foreach collection="prizeIds" item="id" separator="," open="(" close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
     </select>
 </mapper>

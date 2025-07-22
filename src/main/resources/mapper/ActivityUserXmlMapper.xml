@@ -9,4 +9,8 @@
             (#{item.activityId}, #{item.userId}, #{item.userName}, #{item.status})
         </foreach>
     </insert>
+
+    <select id="listActivityUser" resultType="com.liren.lottery_system.common.pojo.entity.ActivityUserEntity">
+        select * from activity_user where activity_id = #{activityId}
+    </select>
 </mapper>

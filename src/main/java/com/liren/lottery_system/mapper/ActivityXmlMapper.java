@@ -26,4 +26,9 @@ public interface ActivityXmlMapper {
      * 获取活动列表
      */
     List<ActivityEntity> listActivity(Integer offset, Integer pageSize);
+
+    /**
+     * 获取活动
+     */
+    ActivityEntity getActivity(Long activityId);
 }

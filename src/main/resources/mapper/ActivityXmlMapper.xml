@@ -19,5 +19,9 @@
         select count(*) from activity where status="RUNNING"
     </select>
 
+    <select id="getActivity" resultType="com.liren.lottery_system.common.pojo.entity.ActivityEntity">
+        select * from activity where id = #{activityId}
+    </select>
+
 
 </mapper>

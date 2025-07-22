@@ -10,4 +10,6 @@ import java.util.List;
 @Mapper
 public interface ActivityUserXmlMapper {
     Integer batchInsert(List<ActivityUserEntity> activityUser);
+
+    List<ActivityUserEntity> listActivityUser(Long activityId);
 }

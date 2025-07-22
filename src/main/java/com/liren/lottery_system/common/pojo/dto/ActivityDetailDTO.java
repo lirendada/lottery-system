@@ -15,6 +15,14 @@ public class ActivityDetailDTO implements Serializable {
     private String description;
     private ActivityStatusEnum status;
 
+    public Boolean isValid() {
+        if (status.getCode().equals(ActivityStatusEnum.RUNNING.getCode())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // 奖品信息（列表）
     private List<PrizeDTO> prizeDTOList;
 
@@ -31,6 +39,14 @@ public class ActivityDetailDTO implements Serializable {
         private Long prizeAmount;
         private PrizeTierEnum prizeTiers;
         private PrizeStatusEnum status;
+
+        public Boolean isValid() {
+            if (status.getCode().equals(PrizeStatusEnum.AVAILABLE.getCode())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     @Data
@@ -38,5 +54,13 @@ public class ActivityDetailDTO implements Serializable {
         private Long userId;
         private String userName;
         private UserStatusEnum status;
+
+        public Boolean isValid() {
+            if (status.getCode().equals(UserStatusEnum.AVAILABLE.getCode())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
