@@ -39,7 +39,7 @@ public class MqReceiver {
             // 4. 通知中奖人
         } catch (ServiceException e) {
             // 异常回滚中奖结果+活动/奖品状态，保证事务一致性
-            log.error("mq消息处理异常：{}", e.getCode(), e);
+            log.error("mq消息处理异常：{}，{}", e.getCode(), e.getMsg(), e);
         } catch (Exception e) {
             // 异常回滚中奖结果+活动/奖品状态，保证事务一致性
             log.error("mq消息处理异常：",  e);
