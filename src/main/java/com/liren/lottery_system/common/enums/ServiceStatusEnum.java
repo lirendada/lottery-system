@@ -39,6 +39,7 @@ public enum ServiceStatusEnum {
     ACTIVITY_PRIZE_NOT_FOUND_ERROR(401, "活动奖品不存在"),
     ACTIVITY_INVALIDATED(402, "活动无效/已执行完毕"),
     PRIZE_NOT_EQUAL_USER_NUMBER(403, "奖品和人员数量不一致"),
+    ACTIVITY_PRIZE_INVALIDATED(404, "奖品无效/已执行完毕"),
 
 
     // ------ 图片错误码 --------

@@ -34,8 +34,11 @@ public class MqReceiver {
         try {
             // 1. 校验
             drawPrizeService.checkMqMessage(drawPrizeRequestDTO);
+
             // 2. 扭转活动状态
+
             // 3. 保存抽奖结果
+
             // 4. 通知中奖人
         } catch (ServiceException e) {
             // 异常回滚中奖结果+活动/奖品状态，保证事务一致性

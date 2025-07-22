@@ -2,6 +2,7 @@ package com.liren.lottery_system.service.impl;
 
 import com.liren.lottery_system.common.config.DirectRabbitConfig;
 import com.liren.lottery_system.common.enums.ActivityStatusEnum;
+import com.liren.lottery_system.common.enums.PrizeStatusEnum;
 import com.liren.lottery_system.common.enums.ServiceStatusEnum;
 import com.liren.lottery_system.common.exception.ServiceException;
 import com.liren.lottery_system.common.pojo.dto.DrawPrizeRequestDTO;
@@ -62,6 +63,11 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
         // 奖品是否存在
         if(activityPrize == null) {
             throw new ServiceException(ServiceStatusEnum.ACTIVITY_PRIZE_NOT_FOUND_ERROR.getCodeStatus());
+        }
+
+        // 奖品是否有效
+        if(activityPrize.getStatus().equalsIgnoreCase(PrizeStatusEnum.DONE.getMes())) {
+            throw new ServiceException(ServiceStatusEnum.ACTIVITY_PRIZE_INVALIDATED.getCodeStatus());
         }
 
         // 中奖人数是否和奖品数量一致
