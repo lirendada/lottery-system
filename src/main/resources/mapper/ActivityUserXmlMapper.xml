@@ -13,4 +13,13 @@
     <select id="listActivityUser" resultType="com.liren.lottery_system.common.pojo.entity.ActivityUserEntity">
         select * from activity_user where activity_id = #{activityId}
     </select>
+
+    <select id="listActivityUserById"
+            resultType="com.liren.lottery_system.common.pojo.entity.ActivityUserEntity">
+        select * from activity_user where activity_id = #{activityId}
+        and user_id in
+        <foreach collection="userIds" item="userid" open="(" close=")" separator=",">
+            #{userid}
+        </foreach>
+    </select>
 </mapper>

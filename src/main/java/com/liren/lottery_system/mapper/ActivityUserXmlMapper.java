@@ -12,4 +12,6 @@ public interface ActivityUserXmlMapper {
     Integer batchInsert(List<ActivityUserEntity> activityUser);
 
     List<ActivityUserEntity> listActivityUser(Long activityId);
+
+    List<ActivityUserEntity> listActivityUserById(Long activityId, List<Long> userIds);
 }

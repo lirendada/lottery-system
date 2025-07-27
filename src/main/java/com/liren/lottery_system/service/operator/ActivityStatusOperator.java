@@ -30,7 +30,7 @@ public class ActivityStatusOperator extends AbstractStatusOperator {
 
     @Override
     public Boolean needConvert(ConvertStatusDTO convertStatusDTO) {
-        // 校验
+        // 校验参数和活动是否存在
         Long activityId = convertStatusDTO.getActivityId();
         ActivityStatusEnum activityStatus = convertStatusDTO.getActivityStatus();
         if(activityId == null || activityStatus == null) {
