@@ -43,4 +43,6 @@ public interface UserXmlMapper {
      * 根据传入的用户id获取对应库中的用户id，用于判断用户是否存在
      */
     List<Long> listUserIdByIds(List<Long> userIds);
+
+    List<UserEntity> listUserByIds(List<Long> userIds);
 }

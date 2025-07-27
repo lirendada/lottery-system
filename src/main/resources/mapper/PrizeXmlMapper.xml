@@ -40,4 +40,8 @@
             </if>
         </where>
     </select>
+
+    <select id="getPrize" resultType="com.liren.lottery_system.common.pojo.entity.PrizeEntity">
+        select * from prize where id = #{prizeId}
+    </select>
 </mapper>

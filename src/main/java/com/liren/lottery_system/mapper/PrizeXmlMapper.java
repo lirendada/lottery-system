@@ -31,4 +31,6 @@ public interface PrizeXmlMapper {
      * 根据传入的奖品id，获取对应奖品信息
      */
     List<PrizeEntity> listPrizeByIds(List<Long> prizeIds);
+
+    PrizeEntity getPrize(Long prizeId);
 }

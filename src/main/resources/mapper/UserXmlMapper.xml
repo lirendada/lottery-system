@@ -38,4 +38,16 @@
             </if>
         </where>
     </select>
+
+    <select id="listUserByIds" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
+        selet * from user
+        <where>
+            <if test="userIds != null and userIds.size() > 0">
+                and id in
+                <foreach collection="userIds" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -20,4 +20,10 @@ public class Constants {
 
     // 活动过期时间（默认七天）
     public static final long ACTIVITY_EXPIRE_TIME = 60*60*24*7L;
+
+    // 活动记录前缀标识
+    public static final String WINNING_RECORDS_PREFIX = "WINNING_RECORDS_";
+
+    // 活动记录过期时间
+    public static final Long WINNING_RECORDS_TIMEOUT = 60 * 60 * 24 * 2L;
 }
