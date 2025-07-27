@@ -59,7 +59,7 @@ public class MqReceiver {
     }
 
 
-    private void convertStatus(DrawPrizeRequestDTO drawPrizeRequestDTO) {
+    public void convertStatus(DrawPrizeRequestDTO drawPrizeRequestDTO) {
         ConvertStatusDTO convertStatusDTO = new ConvertStatusDTO();
         convertStatusDTO.setActivityId(drawPrizeRequestDTO.getActivityId());
         convertStatusDTO.setActivityStatus(ActivityStatusEnum.DONE);

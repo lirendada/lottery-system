@@ -14,4 +14,6 @@ public interface ActivityUserXmlMapper {
     List<ActivityUserEntity> listActivityUser(Long activityId);
 
     List<ActivityUserEntity> listActivityUserById(Long activityId, List<Long> userIds);
+
+    Integer updateUserStatus(Long activityId, List<Long> userIds, String status);
 }

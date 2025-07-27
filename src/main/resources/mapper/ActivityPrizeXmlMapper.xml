@@ -12,6 +12,10 @@
         </foreach>
     </insert>
 
+    <update id="updatePrizeStatus">
+        update activity_prize set status = #{status} where activity_id = #{activityId} and prize_id = #{prizeId}
+    </update>
+
     <select id="listActivityPrize" resultType="com.liren.lottery_system.common.pojo.entity.ActivityPrizeEntity">
         select * from activity_prize where activity_id = #{activityId}
     </select>

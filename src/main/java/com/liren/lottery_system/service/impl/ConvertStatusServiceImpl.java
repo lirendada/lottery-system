@@ -3,8 +3,10 @@ package com.liren.lottery_system.service.impl;
 import com.liren.lottery_system.common.enums.ServiceStatusEnum;
 import com.liren.lottery_system.common.exception.ServiceException;
 import com.liren.lottery_system.common.pojo.dto.ConvertStatusDTO;
+import com.liren.lottery_system.service.ActivityService;
 import com.liren.lottery_system.service.ConvertStatusService;
 import com.liren.lottery_system.service.operator.AbstractStatusOperator;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ import java.util.Map;
 public class ConvertStatusServiceImpl implements ConvertStatusService {
     @Autowired
     private final Map<String, AbstractStatusOperator> statusOperator = new HashMap<>();
+
+    @Resource(name = "activityServiceImpl")
+    private ActivityService activityService;
 
     /**
      * 💥责任链模式 + 策略模式
@@ -41,7 +46,7 @@ public class ConvertStatusServiceImpl implements ConvertStatusService {
 
         // 3. 更新缓存
         if(isUpdate) {
-
+            activityService.updateActivityDetail(convertStatusDTO.getActivityId());
         }
     }
 
@@ -66,8 +71,6 @@ public class ConvertStatusServiceImpl implements ConvertStatusService {
                 throw new ServiceException(ServiceStatusEnum.CONVERT_STATUS_ERROR.getCodeStatus());
             }
 
-            // 到这说明转换成功，删除当前处理的operator，提高执行效率（可选）
-            curOperator.remove(entry.getKey());
             isUpdate = true;
         }
 

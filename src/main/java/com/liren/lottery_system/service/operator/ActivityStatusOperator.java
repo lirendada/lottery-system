@@ -64,6 +64,11 @@ public class ActivityStatusOperator extends AbstractStatusOperator {
 
     @Override
     public Boolean convert(ConvertStatusDTO convertStatusDTO) {
-
+        try {
+            activityXmlMapper.updateActivityStatus(convertStatusDTO.getActivityId(), convertStatusDTO.getActivityStatus().name());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

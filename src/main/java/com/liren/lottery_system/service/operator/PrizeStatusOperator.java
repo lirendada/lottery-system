@@ -4,7 +4,6 @@ import com.liren.lottery_system.common.enums.PrizeStatusEnum;
 import com.liren.lottery_system.common.pojo.dto.ConvertStatusDTO;
 import com.liren.lottery_system.common.pojo.entity.ActivityPrizeEntity;
 import com.liren.lottery_system.mapper.ActivityPrizeXmlMapper;
-import com.liren.lottery_system.mapper.PrizeXmlMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +43,13 @@ public class PrizeStatusOperator extends AbstractStatusOperator {
 
     @Override
     public Boolean convert(ConvertStatusDTO convertStatusDTO) {
-
+        try {
+            activityPrizeXmlMapper.updatePrizeStatus(convertStatusDTO.getActivityId(),
+                    convertStatusDTO.getPrizeId(),
+                    convertStatusDTO.getPrizeStatus().name());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

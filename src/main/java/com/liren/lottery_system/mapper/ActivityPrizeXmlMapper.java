@@ -1,6 +1,7 @@
 package com.liren.lottery_system.mapper;
 
 
+import com.liren.lottery_system.common.enums.PrizeStatusEnum;
 import com.liren.lottery_system.common.pojo.entity.ActivityPrizeEntity;
 import jakarta.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,4 +21,9 @@ public interface ActivityPrizeXmlMapper {
     List<ActivityPrizeEntity> listActivityPrize(Long activityId);
 
     ActivityPrizeEntity getActivityPrize(Long activityId, Long prizeId);
+
+    /**
+     * 更新奖品的状态
+     */
+    Integer updatePrizeStatus(Long activityId, Long prizeId, String status);
 }

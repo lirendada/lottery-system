@@ -11,4 +11,6 @@ public interface ActivityService {
     GetActivityResponseDTO getActivity(GetActivityRequestDTO req);
 
     ActivityDetailDTO getActivityDetail(Long activityId);
+
+    void updateActivityDetail(Long activityId);
 }

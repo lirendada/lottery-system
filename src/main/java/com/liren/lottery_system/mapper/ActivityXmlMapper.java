@@ -31,4 +31,9 @@ public interface ActivityXmlMapper {
      * 获取活动
      */
     ActivityEntity getActivity(Long activityId);
+
+    /**
+     * 更新活动的状态
+     */
+    Integer updateActivityStatus(Long activityId, String status);
 }

@@ -33,7 +33,7 @@ public class UserStatusOperator extends AbstractStatusOperator {
             return false;
         }
 
-        // 如果当前用户状态和目标状态是否一致，则不需要转换
+        // 如果当前用户状态和目标状态是否一致，一致则不需要转换，因为一旦转变就是整体转变
         List<ActivityUserEntity> activityUserEntities = activityUserXmlMapper.listActivityUserById(activityId, userIds);
         if(CollectionUtils.isEmpty(activityUserEntities)) {
             return false;
@@ -50,6 +50,13 @@ public class UserStatusOperator extends AbstractStatusOperator {
 
     @Override
     public Boolean convert(ConvertStatusDTO convertStatusDTO) {
-
+        try {
+            activityUserXmlMapper.updateUserStatus(convertStatusDTO.getActivityId(),
+                    convertStatusDTO.getUserIds(),
+                    convertStatusDTO.getUserStatus().name());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

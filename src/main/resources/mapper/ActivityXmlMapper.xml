@@ -7,6 +7,10 @@
         values (#{activityName}, #{description}, #{status})
     </insert>
 
+    <update id="updateActivityStatus">
+        update activity set status = #{status} where id = #{activityId}
+    </update>
+
     <select id="countActivityByName" resultType="java.lang.Integer">
         select count(*) from activity where activity_name = #{activityName} and status="RUNNING"
     </select>
