@@ -23,8 +23,6 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.liren.lottery_system.common.constant.Constants.WINNING_RECORDS_PREFIX;
-
 @Slf4j
 @Service
 public class DrawPrizeServiceImpl implements DrawPrizeService {
@@ -89,14 +87,14 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
                 }).collect(Collectors.toList());
 
         // 3. 缓存奖品维度的结果
-        storePrizeToRedis(drawPrizeRequestDTO.getActivityId() + "_" + drawPrizeRequestDTO.getPrizeId(),
+        storeToRedis(drawPrizeRequestDTO.getActivityId() + "_" + drawPrizeRequestDTO.getPrizeId(),
                 winnerRecords,
                 Constants.WINNING_RECORDS_TIMEOUT);
 
         // 4. 缓存活动维度的结果（需要判断活动是否结束）
         if(activity.getStatus().equalsIgnoreCase(ActivityStatusEnum.DONE.name())) {
             List<WinnerRecordEntity> winnerRecordEntities = winnerRecordXmlMapper.listWinnerRecordById(activityPrize.getActivityId());
-            storePrizeToRedis(String.valueOf(drawPrizeRequestDTO.getActivityId()),
+            storeToRedis(String.valueOf(drawPrizeRequestDTO.getActivityId()),
                     winnerRecordEntities,
                     Constants.WINNING_RECORDS_TIMEOUT);
         }
@@ -104,7 +102,35 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
         return winnerRecords;
     }
 
-    private void storePrizeToRedis(String key, List<WinnerRecordEntity> value, Long expireTime) {
+    @Override
+    public void deleteWinningRecord(Long activityId, Long prizeId) {
+        if(activityId == null) {
+            log.warn("要删除的winning_record的相关活动id为空！");
+            return;
+        }
+
+        // 回滚获奖记录
+        winnerRecordXmlMapper.deleteWinningRecordById(activityId, prizeId);
+
+        // 删除奖品维度和活动维度的缓存
+        if(prizeId != null) {
+            deleteFromRedis(activityId + "_" + prizeId);
+        }
+        deleteFromRedis(String.valueOf(activityId));
+    }
+
+
+    private void deleteFromRedis(String key) {
+        try {
+            if(redisUtil.hasKey(Constants.WINNING_RECORDS_PREFIX + key)) {
+                redisUtil.delete(Constants.WINNING_RECORDS_PREFIX + key);
+            }
+        } catch (Exception e) {
+            log.error("删除缓存中奖记录异常！key:{}", Constants.WINNING_RECORDS_PREFIX + key);
+        }
+    }
+
+    private void storeToRedis(String key, List<WinnerRecordEntity> value, Long expireTime) {
         String str = "";
         try {
             if(!StringUtils.hasText(key) || CollectionUtils.isEmpty(value)) {
@@ -119,7 +145,7 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
         }
     }
 
-    private List<WinnerRecordEntity> getPrizeFromRedis(String key) {
+    private List<WinnerRecordEntity> getFromRedis(String key) {
         try {
             if (!StringUtils.hasText(key)) {
                 log.warn("要从缓存中查询中奖记录的key为空！");
@@ -137,34 +163,43 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
         }
     }
 
+
+
     @Override
-    public void checkMqMessage(DrawPrizeRequestDTO data) {
+    public boolean checkMqMessage(DrawPrizeRequestDTO data) {
         ActivityEntity activity = activityXmlMapper.getActivity(data.getActivityId());
         ActivityPrizeEntity activityPrize = activityPrizeXmlMapper.getActivityPrize(data.getActivityId(), data.getPrizeId());
 
         // 活动是否存在
         if(activity == null) {
-            throw new ServiceException(ServiceStatusEnum.ACTIVITY_NOT_FOUND_ERROR.getCodeStatus());
+            log.info("校验抽奖请求失败！失败原因：{}", ServiceStatusEnum.ACTIVITY_NOT_FOUND_ERROR.getMsg());
+            return false;
         }
 
         // 活动是否有效
-        if(activity.getStatus().equalsIgnoreCase(ActivityStatusEnum.DONE.getMsg())) {
-            throw new ServiceException(ServiceStatusEnum.ACTIVITY_INVALIDATED.getCodeStatus());
+        if(activity.getStatus().equalsIgnoreCase(ActivityStatusEnum.DONE.name())) {
+            log.info("校验抽奖请求失败！失败原因：{}", ServiceStatusEnum.ACTIVITY_INVALIDATED.getMsg());
+            return false;
         }
 
         // 奖品是否存在
         if(activityPrize == null) {
-            throw new ServiceException(ServiceStatusEnum.ACTIVITY_PRIZE_NOT_FOUND_ERROR.getCodeStatus());
+            log.info("校验抽奖请求失败！失败原因：{}", ServiceStatusEnum.ACTIVITY_PRIZE_NOT_FOUND_ERROR.getMsg());
+            return false;
         }
 
         // 奖品是否有效
-        if(activityPrize.getStatus().equalsIgnoreCase(PrizeStatusEnum.DONE.getMes())) {
-            throw new ServiceException(ServiceStatusEnum.ACTIVITY_PRIZE_INVALIDATED.getCodeStatus());
+        if(activityPrize.getStatus().equalsIgnoreCase(PrizeStatusEnum.DONE.name())) {
+            log.info("校验抽奖请求失败！失败原因：{}", ServiceStatusEnum.ACTIVITY_PRIZE_INVALIDATED.getMsg());
+            return false;
         }
 
         // 中奖人数是否和奖品数量一致
         if(activityPrize.getPrizeAmount() != data.getWinnerList().size()) {
-            throw new ServiceException(ServiceStatusEnum.PRIZE_NOT_EQUAL_USER_NUMBER.getCodeStatus());
+            log.info("校验抽奖请求失败！失败原因：{}", ServiceStatusEnum.PRIZE_NOT_EQUAL_USER_NUMBER.getMsg());
+            return false;
         }
+
+        return true;
     }
 }

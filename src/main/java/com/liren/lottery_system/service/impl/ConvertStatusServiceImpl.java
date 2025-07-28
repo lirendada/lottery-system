@@ -10,6 +10,7 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class ConvertStatusServiceImpl implements ConvertStatusService {
      * 作用：提高模块依赖可控性、可维护性、可拓展性等
      */
     @Override
+    @Transactional(rollbackFor = Exception.class) // 开启事务，保证一致性
     public void convertStatus(ConvertStatusDTO convertStatusDTO) {
         if(CollectionUtils.isEmpty(statusOperator)) {
             log.warn("operatorMap为空！");
@@ -48,6 +50,20 @@ public class ConvertStatusServiceImpl implements ConvertStatusService {
         if(isUpdate) {
             activityService.updateActivityDetail(convertStatusDTO.getActivityId());
         }
+    }
+
+    /**
+     * 回滚活动相关状态和记录
+     */
+    @Override
+    public void rollbackStatus(ConvertStatusDTO convertStatusDTO) {
+        // 活动、人员、奖品都必须回滚，所以不需要判断
+        for(AbstractStatusOperator operator : statusOperator.values()) {
+            operator.convert(convertStatusDTO);
+        }
+
+        // 更新缓存
+        activityService.updateActivityDetail(convertStatusDTO.getActivityId());
     }
 
     private Boolean processConvert(ConvertStatusDTO convertStatusDTO,

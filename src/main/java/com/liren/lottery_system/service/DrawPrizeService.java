@@ -8,7 +8,9 @@ import java.util.List;
 public interface DrawPrizeService {
     void drawPrize(DrawPrizeRequestDTO req);
 
-    void checkMqMessage(DrawPrizeRequestDTO data);
+    boolean checkMqMessage(DrawPrizeRequestDTO data);
 
     List<WinnerRecordEntity> saveDrawPrizeResult(DrawPrizeRequestDTO drawPrizeRequestDTO);
+
+    void deleteWinningRecord(Long activityId, Long prizeId);
 }

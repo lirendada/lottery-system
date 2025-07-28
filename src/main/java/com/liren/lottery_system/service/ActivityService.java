@@ -12,5 +12,9 @@ public interface ActivityService {
 
     ActivityDetailDTO getActivityDetail(Long activityId);
 
+    /**
+     * 更新redis中的活动详细信息
+     * @param activityId
+     */
     void updateActivityDetail(Long activityId);
 }

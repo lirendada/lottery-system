@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 public class MailUtil {
     @Value(value = "${spring.mail.username}")
     private String from;
+
     @Autowired
     private JavaMailSender mailSender;
+
     public Boolean sendSampleMail(String to, String subject, String context) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);

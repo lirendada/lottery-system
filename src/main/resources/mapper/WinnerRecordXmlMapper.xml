@@ -2,9 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liren.lottery_system.mapper.WinnerRecordXmlMapper">
+    <delete id="deleteWinningRecordById">
+        delete from winning_record where activity_id = #{activityId}
+        <if test="prizeId != null">
+            and prize_id = #{prizeId}
+        </if>
+    </delete>
 
     <select id="listWinnerRecordById"
             resultType="com.liren.lottery_system.common.pojo.entity.WinnerRecordEntity">
         select * from winning_record where activity_id = #{activityId}
+    </select>
+
+    <select id="countWinnerRecord" resultType="java.lang.Integer">
+        select count(*) from winning_record where activity_id = {activityId} and prize_id = #{prizeId}
     </select>
 </mapper>

@@ -4,4 +4,6 @@ import com.liren.lottery_system.common.pojo.dto.ConvertStatusDTO;
 
 public interface ConvertStatusService {
     void convertStatus(ConvertStatusDTO convertStatusDTO);
+
+    void rollbackStatus(ConvertStatusDTO convertStatusDTO);
 }
