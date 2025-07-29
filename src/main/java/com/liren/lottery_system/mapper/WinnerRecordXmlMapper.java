@@ -13,4 +13,6 @@ public interface WinnerRecordXmlMapper {
     Integer countWinnerRecord(Long activityId, Long prizeId);
 
     void deleteWinningRecordById(Long activityId, Long prizeId);
+
+    void insertWinningRecord(List<WinnerRecordEntity> winnerRecords);
 }

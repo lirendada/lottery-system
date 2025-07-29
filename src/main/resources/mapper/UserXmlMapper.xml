@@ -40,7 +40,7 @@
     </select>
 
     <select id="listUserByIds" resultType="com.liren.lottery_system.common.pojo.entity.UserEntity">
-        selet * from user
+        select * from user
         <where>
             <if test="userIds != null and userIds.size() > 0">
                 and id in

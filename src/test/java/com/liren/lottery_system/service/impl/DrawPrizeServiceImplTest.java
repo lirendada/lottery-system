@@ -18,15 +18,24 @@ class DrawPrizeServiceImplTest {
 
     @Test
     void drawPrize() {
+//        DrawPrizeRequestDTO drawPrizeRequestDTO = new DrawPrizeRequestDTO();
+//        drawPrizeRequestDTO.setActivityId(1l);
+//        drawPrizeRequestDTO.setPrizeId(1l);
+//        drawPrizeRequestDTO.setPrizeTiers("FIRST_PRIZE");
+//        drawPrizeRequestDTO.setWinningTime(new Date(System.currentTimeMillis()));
+//        List<DrawPrizeRequestDTO.Winner> winnerList = new ArrayList<>();
+//        winnerList.add(new DrawPrizeRequestDTO.Winner(1l, "liren"));
+//        drawPrizeRequestDTO.setWinnerList(winnerList);
+
+        // 1. 正向流程测试
         DrawPrizeRequestDTO drawPrizeRequestDTO = new DrawPrizeRequestDTO();
-        drawPrizeRequestDTO.setActivityId(1l);
-        drawPrizeRequestDTO.setPrizeId(1l);
-        drawPrizeRequestDTO.setPrizeTiers("FIRST_PRIZE");
+        drawPrizeRequestDTO.setActivityId(27L);
+        drawPrizeRequestDTO.setPrizeId(21L);
+        drawPrizeRequestDTO.setPrizeTiers("SECOND_PRIZE");
         drawPrizeRequestDTO.setWinningTime(new Date(System.currentTimeMillis()));
         List<DrawPrizeRequestDTO.Winner> winnerList = new ArrayList<>();
-        winnerList.add(new DrawPrizeRequestDTO.Winner(1l, "liren"));
+        winnerList.add(new DrawPrizeRequestDTO.Winner(54l, "asd"));
         drawPrizeRequestDTO.setWinnerList(winnerList);
-
 
         drawPrizeService.drawPrize(drawPrizeRequestDTO);
     }

@@ -85,6 +85,7 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
                     winnerRecord.setWinningTime(drawPrizeRequestDTO.getWinningTime());
                     return winnerRecord;
                 }).collect(Collectors.toList());
+        winnerRecordXmlMapper.insertWinningRecord(winnerRecords);
 
         // 3. 缓存奖品维度的结果
         storeToRedis(drawPrizeRequestDTO.getActivityId() + "_" + drawPrizeRequestDTO.getPrizeId(),
