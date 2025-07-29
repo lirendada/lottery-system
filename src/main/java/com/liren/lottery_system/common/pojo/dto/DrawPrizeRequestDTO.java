@@ -18,9 +18,7 @@ public class DrawPrizeRequestDTO implements Serializable {
     private Long activityId;
     @NotNull(message = "奖品ID不能为空！")
     private Long prizeId;
-    @NotBlank(message = "奖品等级不能为空！")
-    private String prizeTiers;
-    @NotEmpty(message = "中奖时间不能为空！")
+    @NotNull(message = "中奖时间不能为空！")
     private Date winningTime;
 
     @NotEmpty(message = "获胜人员列表不能为空！")

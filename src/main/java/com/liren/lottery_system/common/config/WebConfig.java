@@ -26,8 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/favicon.ico",
             "/**/login",
             "/register",
-            "/verification-code/send",
-            "/winning-records/show"
+            "/verification-code/send"
     );
 
     @Override

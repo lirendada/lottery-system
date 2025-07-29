@@ -2,6 +2,7 @@ package com.liren.lottery_system.common.utils;
 
 import com.liren.lottery_system.common.pojo.dto.*;
 import com.liren.lottery_system.common.pojo.entity.UserEntity;
+import com.liren.lottery_system.common.pojo.entity.WinnerRecordEntity;
 import com.liren.lottery_system.common.pojo.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -116,5 +117,22 @@ public class BeanTransformUtil {
                     return user;
                 }).collect(Collectors.toList()));
         return responseVO;
+    }
+
+    /**
+     * List<WinnerRecordEntity> 转化为 List<WinningRecordsResponseVO>
+     */
+    public static List<WinningRecordsResponseVO> transToWinningRecordsResponseVO(List<WinnerRecordEntity> responseDTO) {
+        log.info("List<WinnerRecordEntity> 转化为 List<WinningRecordsResponseVO>");
+        return responseDTO.stream()
+                .map(x -> {
+                    WinningRecordsResponseVO winningRecordsResponseVO = new WinningRecordsResponseVO();
+                    winningRecordsResponseVO.setWinnerId(x.getWinnerId());
+                    winningRecordsResponseVO.setWinnerName(x.getWinnerName());
+                    winningRecordsResponseVO.setPrizeName(x.getPrizeName());
+                    winningRecordsResponseVO.setPrizeTier(x.getPrizeTier());
+                    winningRecordsResponseVO.setWinningTime(x.getWinningTime());
+                    return winningRecordsResponseVO;
+                }).collect(Collectors.toList());
     }
 }

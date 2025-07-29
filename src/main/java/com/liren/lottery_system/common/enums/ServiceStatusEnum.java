@@ -41,6 +41,7 @@ public enum ServiceStatusEnum {
     PRIZE_NOT_EQUAL_USER_NUMBER(403, "奖品和人员数量不一致"),
     ACTIVITY_PRIZE_INVALIDATED(404, "奖品无效/已执行完毕"),
     CONVERT_STATUS_ERROR(405, "转换状态失败"),
+    WINNING_RECORD_NOT_EXIST(406, "中奖记录不存在"),
 
 
     // ------ 图片错误码 --------

@@ -7,6 +7,7 @@ import com.liren.lottery_system.common.enums.PrizeStatusEnum;
 import com.liren.lottery_system.common.enums.ServiceStatusEnum;
 import com.liren.lottery_system.common.exception.ServiceException;
 import com.liren.lottery_system.common.pojo.dto.DrawPrizeRequestDTO;
+import com.liren.lottery_system.common.pojo.dto.WinningRecordsRequestDTO;
 import com.liren.lottery_system.common.pojo.entity.*;
 import com.liren.lottery_system.common.utils.JsonUtil;
 import com.liren.lottery_system.common.utils.RedisUtil;
@@ -118,6 +119,15 @@ public class DrawPrizeServiceImpl implements DrawPrizeService {
             deleteFromRedis(activityId + "_" + prizeId);
         }
         deleteFromRedis(String.valueOf(activityId));
+    }
+
+    @Override
+    public List<WinnerRecordEntity> getWinningRecords(WinningRecordsRequestDTO req) {
+        List<WinnerRecordEntity> winnerRecords = winnerRecordXmlMapper.listWinnerRecordById(req.getActivityId());
+        if(CollectionUtils.isEmpty(winnerRecords)) {
+            throw new ServiceException(ServiceStatusEnum.WINNING_RECORD_NOT_EXIST.getCodeStatus());
+        }
+        return winnerRecords;
     }
 
 
