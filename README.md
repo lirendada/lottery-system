@@ -400,19 +400,6 @@ lottery_system/
 | `/draw/prize` | POST | 发起抽奖（异步） |
 | `/draw/winning-records` | GET | 获取中奖记录 |
 
-## 🔧 开发计划
-
-- [ ] 前端管理页面开发
-- [ ] 接口文档集成（Swagger/Knife4j）
-- [ ] 单元测试完善
-- [ ] Docker 容器化部署
-- [ ] CI/CD 流水线配置
-- [ ] 性能测试与优化
-
-## 📄 许可证
-
-本项目采用 MIT 许可证，详见 [LICENSE](LICENSE) 文件。
-
 ## 👨‍💻 作者
 
 lirendada
